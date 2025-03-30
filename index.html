@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ultimate Game Audio Generator</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f0f2f5;
+        line-height: 1.6;
+      }
+      h1 {
+        color: #1e40af;
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.5rem;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+      }
+      .card {
+        background-color: white;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+      }
+      .card h2 {
+        color: #2563eb;
+        font-size: 1.6rem;
+        margin: 0 0 20px;
+      }
+      .sound-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 12px;
+        margin-bottom: 25px;
+      }
+      .sound-button {
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background-color: #2563eb;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .sound-button:hover {
+        background-color: #1d4ed8;
+        transform: scale(1.05);
+      }
+      .music-controls {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 25px;
+      }
+      .music-button {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .music-button.play {
+        background-color: #10b981;
+        color: white;
+      }
+      .music-button.play:hover {
+        background-color: #059669;
+      }
+      .music-button.stop {
+        background-color: #ef4444;
+        color: white;
+      }
+      .music-button.stop:hover {
+        background-color: #dc2626;
+      }
+      .music-button.loop {
+        background-color: #8b5cf6;
+        color: white;
+      }
+      .music-button.loop:hover {
+        background-color: #7c3aed;
+      }
+      .param-section {
+        margin-bottom: 25px;
+      }
+      .param-section label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #374151;
+      }
+      .slider-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      .slider-container input[type="range"] {
+        flex: 1;
+        accent-color: #2563eb;
+      }
+      .slider-value {
+        min-width: 50px;
+        font-family: monospace;
+        text-align: right;
+        color: #1f2937;
+      }
+      .keyboard-controls {
+        background-color: #f8fafc;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+      }
+      .keyboard-controls ul {
+        columns: 2;
+        padding-left: 20px;
+      }
+      .keyboard-key {
+        background-color: #e2e8f0;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+      .preset-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .preset-button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        background-color: #6b7280;
+        color: white;
+        cursor: pointer;
+      }
+      .preset-button:hover {
+        background-color: #4b5563;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-C66wku5O.js"></script>
+  </head>
+  <body>
+    <h1>Ultimate Game Audio Generator</h1>
+
+    <div class="container">
+      <div class="card">
+        <h2>Sound Effects</h2>
+        <div class="sound-buttons">
+          <button class="sound-button" id="jump-btn">Jump</button>
+          <button class="sound-button" id="punch-btn">Punch</button>
+          <button class="sound-button" id="kick-btn">Kick</button>
+          <button class="sound-button" id="coin-btn">Coin</button>
+          <button class="sound-button" id="powerup-btn">Power Up</button>
+          <button class="sound-button" id="gameover-btn">Game Over</button>
+          <button class="sound-button" id="explosion-btn">Explosion</button>
+          <button class="sound-button" id="laser-btn">Laser</button>
+          <button class="sound-button" id="heal-btn">Heal</button>
+          <button class="sound-button" id="alert-btn">Alert</button>
+        </div>
+
+        <h2>Background Music</h2>
+        <div class="music-controls">
+          <button class="music-button play" id="play-song-btn">Play</button>
+          <button class="music-button stop" id="stop-song-btn">Stop</button>
+          <button class="music-button loop" id="loop-toggle-btn">
+            Loop: On
+          </button>
+        </div>
+
+        <div class="keyboard-controls">
+          <h3>Keyboard Controls</h3>
+          <ul>
+            <li><span class="keyboard-key">Space</span> - Jump</li>
+            <li><span class="keyboard-key">P</span> - Punch</li>
+            <li><span class="keyboard-key">K</span> - Kick</li>
+            <li><span class="keyboard-key">C</span> - Coin</li>
+            <li><span class="keyboard-key">U</span> - Power Up</li>
+            <li><span class="keyboard-key">G</span> - Game Over</li>
+            <li><span class="keyboard-key">E</span> - Explosion</li>
+            <li><span class="keyboard-key">L</span> - Laser</li>
+            <li><span class="keyboard-key">H</span> - Heal</li>
+            <li><span class="keyboard-key">A</span> - Alert</li>
+            <li><span class="keyboard-key">M</span> - Play/Stop Music</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Audio Parameters</h2>
+
+        <div class="param-section">
+          <label for="master-volume">Master Volume</label>
+          <div class="slider-container">
+            <input
+              type="range"
+              id="master-volume"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.7"
+            />
+            <span class="slider-value" id="master-volume-value">0.70</span>
+          </div>
+
+          <label for="sfx-volume">SFX Volume</label>
+          <div class="slider-container">
+            <input
+              type="range"
+              id="sfx-volume"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.8"
+            />
+            <span class="slider-value" id="sfx-volume-value">0.80</span>
+          </div>
+
+          <label for="music-volume">Music Volume</label>
+          <div class="slider-container">
+            <input
+              type="range"
+              id="music-volume"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.4"
+            />
+            <span class="slider-value" id="music-volume-value">0.40</span>
+          </div>
+        </div>
+
+        <div class="param-section">
+          <label for="jump-freq-start">Jump Frequency (Hz)</label>
+          <div class="slider-container">
+            <input
+              type="range"
+              id="jump-freq-start"
+              min="200"
+              max="800"
+              step="10"
+              value="380"
+            />
+            <span class="slider-value" id="jump-freq-start-value">380</span>
+          </div>
+
+          <label for="punch-decay">Punch Decay (s)</label>
+          <div class="slider-container">
+            <input
+              type="range"
+              id="punch-decay"
+              min="0.1"
+              max="0.5"
+              step="0.01"
+              value="0.2"
+            />
+            <span class="slider-value" id="punch-decay-value">0.20</span>
+          </div>
+
+          <label for="coin-freq-end">Coin End Frequency (Hz)</label>
+          <div class="slider-container">
+            <input
+              type="range"
+              id="coin-freq-end"
+              min="500"
+              max="2000"
+              step="10"
+              value="1200"
+            />
+            <span class="slider-value" id="coin-freq-end-value">1200</span>
+          </div>
+
+          <label for="explosion-intensity">Explosion Intensity</label>
+          <div class="slider-container">
+            <input
+              type="range"
+              id="explosion-intensity"
+              min="0.5"
+              max="2"
+              step="0.1"
+              value="1"
+            />
+            <span class="slider-value" id="explosion-intensity-value">1.0</span>
+          </div>
+        </div>
+
+        <div class="preset-buttons">
+          <button class="preset-button" id="preset-8bit">8-Bit Style</button>
+          <button class="preset-button" id="preset-modern">Modern</button>
+          <button class="preset-button" id="preset-arcade">Arcade</button>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
