@@ -1,4 +1,4 @@
-import { melodySets, bassSets, pitchMap } from "./sets";
+import { melodySets, bassSets, pitchMap } from "./sets.js";
 
 class AudioManager {
     constructor() {
